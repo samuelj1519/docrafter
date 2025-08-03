@@ -16,12 +16,12 @@ export const useEditorStore = defineStore('editor', () => {
   const allTags = ref<Tag[]>([])
   const isSplitView = ref(true)
   const isPreviewMode = ref(false)
-  
+
   // Scroll synchronization
   const editorScrollTop = ref(0)
   const previewScrollTop = ref(0)
   const isScrollSyncing = ref(false)
-  
+
 
   const history = computed((): HistoryItem[] => {
     return savedContents.value
@@ -42,9 +42,12 @@ export const useEditorStore = defineStore('editor', () => {
       if (!grouped.has(dateKey)) {
         grouped.set(dateKey, [])
       }
-      grouped.get(dateKey)!.push(item)
+      const group = grouped.get(dateKey)
+      if (group) {
+        group.push(item)
+      }
     })
-    return Array.from(grouped.entries()).sort((a, b) => 
+    return Array.from(grouped.entries()).sort((a, b) =>
       new Date(b[0]).getTime() - new Date(a[0]).getTime()
     )
   })
@@ -93,7 +96,7 @@ export const useEditorStore = defineStore('editor', () => {
       currentContent.value.createdAt = new Date()
     }
     currentContent.value.updatedAt = new Date()
-    
+
     const existingIndex = savedContents.value.findIndex(c => c.id === currentContent.value.id)
     if (existingIndex > -1) {
       savedContents.value[existingIndex] = { ...currentContent.value }

@@ -1,8 +1,8 @@
-/// <reference types="unocss/runtime" />
+// / <reference types="unocss/runtime" />
 
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
-  const component: DefineComponent<{}, {}, any>
+  const component: DefineComponent<{}, {}, unknown>
   export default component
 }
 
@@ -25,4 +25,4 @@ declare module '*.sass' {
 declare module '*.less' {
   const content: string
   export default content
-} 
+}
