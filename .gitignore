@@ -1,6 +1,9 @@
 .vscode
 .idea
 
+serve.pid
+*.log
+
 .specstory
 .cursor*
 CLAUDE*
